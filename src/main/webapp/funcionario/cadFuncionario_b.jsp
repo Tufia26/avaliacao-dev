@@ -16,9 +16,9 @@
 		            <s:url action="todosAgendas" var="urlAgend" />
 		            <s:url action="todosCompromissos" var="urlComp" />
 		            
-		            <a class="nav-link" href="${urlFunc}">Funcionários</a>
+		            <a class="nav-link active" href="${urlFunc}">Funcionários</a>
 		            <a class="nav-link" href="${urlAgend}">Agendas</a>
-		            <a class="nav-link active" href="${urlComp}">Compromissos</a>
+		            <a class="nav-link" href="${urlComp}">Compromissos</a>
 		        </div>
 		    </div>
 		</nav>

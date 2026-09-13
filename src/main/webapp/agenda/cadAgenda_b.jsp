@@ -17,12 +17,18 @@
 		            <s:url action="todosCompromissos" var="urlComp" />
 		            
 		            <a class="nav-link" href="${urlFunc}">Funcionários</a>
-		            <a class="nav-link" href="${urlAgend}">Agendas</a>
-		            <a class="nav-link active" href="${urlComp}">Compromissos</a>
+		            <a class="nav-link active" href="${urlAgend}">Agendas</a>
+		            <a class="nav-link" href="${urlComp}">Compromissos</a>
 		        </div>
 		    </div>
 		</nav>
 		<div class="container">
+			<s:if test="hasActionErrors()">
+				<div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+					<s:actionerror />
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			</s:if>
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
 					<s:form action="/filtrarAgendas.action">
