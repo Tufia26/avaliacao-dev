@@ -33,12 +33,7 @@ public class FuncionarioAction extends Action {
 	}
 	
 	public String novo() {
-		if(funcionarioVo.getNome() == null)
-			return INPUT;
-		
-		business.salvarFuncionario(funcionarioVo);
-		
-		return REDIRECT;
+	    return INPUT;
 	}
 	
 	public String editar() {
