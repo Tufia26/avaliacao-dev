@@ -27,6 +27,8 @@ public class FuncionarioBusiness {
 				throw new IllegalArgumentException("Nome nao pode ser em branco");
 			
 			dao.insertFuncionario(funcionarioVo);
+		} catch (IllegalArgumentException e) {
+			throw new BusinessException(e.getMessage());
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
