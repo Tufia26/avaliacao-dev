@@ -23,17 +23,14 @@ public class FuncionarioBusiness {
 	
 	public void salvarFuncionario(FuncionarioVo funcionarioVo) {
 		try {
-			if(funcionarioVo.getNome().isEmpty())
-				throw new IllegalArgumentException("Nome nao pode ser em branco");
-			
+			validarDadosFuncionario(funcionarioVo);
 			dao.insertFuncionario(funcionarioVo);
 		} catch (IllegalArgumentException e) {
 			throw new BusinessException(e.getMessage());
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
-		
-	}	
+	}
 	
 	public List<FuncionarioVo> filtrarFuncionarios(FuncionarioFilter filter){
 		List<FuncionarioVo> funcionarios = new ArrayList<>();
@@ -67,13 +64,10 @@ public class FuncionarioBusiness {
 	
 	public void atualizarFuncionario(FuncionarioVo funcionarioVo) {
 		try {
-			if(funcionarioVo.getNome() == null || funcionarioVo.getNome().trim().isEmpty()) {
-				throw new IllegalArgumentException("Nome nao pode ser em branco");
-			}
-			if(funcionarioVo.getRowid() == null || funcionarioVo.getRowid().trim().isEmpty()) {
+			if (funcionarioVo.getRowid() == null || funcionarioVo.getRowid().trim().isEmpty()) {
 				throw new IllegalArgumentException("Identificador nao informado para alteracao");
 			}
-			
+			validarDadosFuncionario(funcionarioVo);
 			dao.updateFuncionario(funcionarioVo);
 		} catch (IllegalArgumentException e) {
 			throw new BusinessException(e.getMessage());
@@ -97,6 +91,15 @@ public class FuncionarioBusiness {
 			throw new BusinessException(e.getMessage());
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel realizar a exclusao do registro");
+		}
+	}
+	
+	private void validarDadosFuncionario(FuncionarioVo funcionarioVo) {
+		if (funcionarioVo == null) {
+			throw new IllegalArgumentException("Dados do funcionario nao informados");
+		}
+		if (funcionarioVo.getNome() == null || funcionarioVo.getNome().trim().isEmpty()) {
+			throw new IllegalArgumentException("Nome nao pode ser em branco");
 		}
 	}
 }
