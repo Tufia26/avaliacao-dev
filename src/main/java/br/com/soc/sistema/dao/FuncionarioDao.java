@@ -61,11 +61,10 @@ public class FuncionarioDao extends Dao {
 			ps.setString(i, "%"+nome+"%");
 			
 			try(ResultSet rs = ps.executeQuery()){
-				FuncionarioVo vo =  null;
 				List<FuncionarioVo> funcionarios = new ArrayList<>();
 				
 				while (rs.next()) {
-					vo = new FuncionarioVo();
+					FuncionarioVo vo = new FuncionarioVo();
 					vo.setRowid(rs.getString("id"));
 					vo.setNome(rs.getString("nome"));	
 					
@@ -106,32 +105,34 @@ public class FuncionarioDao extends Dao {
 	}
 	
 	public void updateFuncionario(FuncionarioVo funcionarioVo) {
-		StringBuilder query = new StringBuilder("UPDATE funcionario SET nm_funcionario = ? WHERE rowid = ?");
+		StringBuilder query = new StringBuilder("UPDATE funcionario SET nm_funcionario = ? ")
+								.append("WHERE rowid = ?");
 		
-		try (Connection con = getConexao();
-			 PreparedStatement ps = con.prepareStatement(query.toString())) {
-			
+		try(Connection con = getConexao();
+			PreparedStatement ps = con.prepareStatement(query.toString())) {
 			int i = 1;
+			
 			ps.setString(i++, funcionarioVo.getNome());
 			ps.setLong(i++, Long.parseLong(funcionarioVo.getRowid()));
-			
 			ps.executeUpdate();
-		} catch (SQLException e) {
+			
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void deleteByCodigo(Integer codigo) {
-		StringBuilder query = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
+		StringBuilder query = new StringBuilder("DELETE FROM funcionario ")
+								.append("WHERE rowid = ?");
 		
-		try (Connection con = getConexao();
-			 PreparedStatement ps = con.prepareStatement(query.toString())) {
-			
+		try(Connection con = getConexao();
+			PreparedStatement ps = con.prepareStatement(query.toString())) {
 			int i = 1;
-			ps.setInt(i++, codigo);
 			
+			ps.setInt(i++, codigo);
 			ps.executeUpdate();
-		} catch (SQLException e) {
+			
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
