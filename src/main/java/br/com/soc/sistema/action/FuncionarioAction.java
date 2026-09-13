@@ -50,6 +50,26 @@ public class FuncionarioAction extends Action {
 		return INPUT;
 	}
 	
+	public String salvar() {
+		if(funcionarioVo.getRowid() != null && !funcionarioVo.getRowid().trim().isEmpty()) {
+			business.atualizarFuncionario(funcionarioVo);
+		}else {
+			business.salvarFuncionario(funcionarioVo);
+		}
+		
+		return REDIRECT;
+	}
+	
+	public String excluir() {
+		if(funcionarioVo.getRowid() == null || funcionarioVo.getRowid().trim().isEmpty()) {
+			return REDIRECT;
+		}
+		
+		business.excluirFuncionario(funcionarioVo.getRowid());
+		
+		return REDIRECT;
+	}
+	
 	public List<OpcoesComboBuscar> getListaOpcoesCombo(){
 		return Arrays.asList(OpcoesComboBuscar.values());
 	}
