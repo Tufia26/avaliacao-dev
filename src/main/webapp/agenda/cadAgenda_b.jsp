@@ -50,11 +50,7 @@
 							<tr>
 								<td>${rowid}</td>
 								<td>${nome}</td>
-								<td>
-								    <s:if test='periodoDisponivel == "1"'>Manhã</s:if>
-								    <s:elseif test='periodoDisponivel == "2"'>Tarde</s:elseif>
-								    <s:elseif test='periodoDisponivel == "3"'>Ambos</s:elseif>
-								</td>
+								<td>${descricaoDisponibilidade}</td>
 								<td class="text-end">
 									<s:url action="editarAgendas" var="editar">
 										<s:param name="agendaVo.rowid" value="rowid"></s:param>

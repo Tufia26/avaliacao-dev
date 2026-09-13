@@ -1,5 +1,7 @@
 package br.com.soc.sistema.vo;
 
+import br.com.soc.sistema.infra.DisponibilidadeEnum;
+
 public class AgendaVo {
 
 	private String rowid;
@@ -31,6 +33,10 @@ public class AgendaVo {
 	}
 	public void setPeriodoDisponivel(String periodoDisponivel) {
 		this.periodoDisponivel = periodoDisponivel;
+	}
+	public String getDescricaoDisponibilidade() {
+		DisponibilidadeEnum disp = DisponibilidadeEnum.buscarPorCodigo(this.periodoDisponivel);
+		return disp != null ? disp.getDescricao() : "-";
 	}
 
 	@Override
