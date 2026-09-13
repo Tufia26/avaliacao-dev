@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.soc.sistema.dao.FuncionarioDao;
+import br.com.soc.sistema.dao.CompromissoDao;
 import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.FuncionarioFilter;
 import br.com.soc.sistema.vo.FuncionarioVo;
+
 
 public class FuncionarioBusiness {
 
 	private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
 	private FuncionarioDao dao;
+	private CompromissoDao compromissoDao;
 	
 	public FuncionarioBusiness() {
 		this.dao = new FuncionarioDao();
+		this.compromissoDao = new CompromissoDao();
 	}
 	
 	public List<FuncionarioVo> trazerTodosOsFuncionarios(){
@@ -83,6 +87,7 @@ public class FuncionarioBusiness {
 			}
 			
 			Integer cod = Integer.parseInt(codigo);
+			compromissoDao.deleteByCodigoFuncionario(codigo);
 			
 			dao.deleteByCodigo(cod);
 		} catch (NumberFormatException e) {
