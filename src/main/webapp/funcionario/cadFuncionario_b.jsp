@@ -7,7 +7,19 @@
 		<title><s:text name="label.titulo.pagina.consulta"/></title>
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
-	<body class="bg-secondary">	
+	<body class="bg-secondary">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+		    <div class="container">
+		        <span class="navbar-brand font-weight-bold">Sistema SOC</span>
+		        <div class="navbar-nav">
+		            <s:url action="todosFuncionarios" var="urlFunc" />
+		            <s:url action="todosAgendas" var="urlAgend" />
+		            
+		            <a class="nav-link" href="${urlFunc}">Funcionários</a>
+		            <a class="nav-link" href="${urlAgend}">Agendas</a>
+		        </div>
+		    </div>
+		</nav>
 		<div class="container">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
