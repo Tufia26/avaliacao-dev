@@ -62,4 +62,39 @@ public class FuncionarioBusiness {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		}
 	}
+	
+	public void atualizarFuncionario(FuncionarioVo funcionarioVo) {
+		try {
+			if(funcionarioVo.getNome() == null || funcionarioVo.getNome().trim().isEmpty()) {
+				throw new IllegalArgumentException("Nome nao pode ser em branco");
+			}
+			if(funcionarioVo.getRowid() == null || funcionarioVo.getRowid().trim().isEmpty()) {
+				throw new IllegalArgumentException("Identificador nao informado para alteracao");
+			}
+			
+			dao.updateFuncionario(funcionarioVo);
+		} catch (IllegalArgumentException e) {
+			throw new BusinessException(e.getMessage());
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel realizar a alteracao do registro");
+		}
+	}
+
+	public void excluirFuncionario(String codigo) {
+		try {
+			if(codigo == null || codigo.trim().isEmpty()) {
+				throw new IllegalArgumentException("Codigo nao informado para exclusao");
+			}
+			
+			Integer cod = Integer.parseInt(codigo);
+			
+			dao.deleteByCodigo(cod);
+		} catch (NumberFormatException e) {
+			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+		} catch (IllegalArgumentException e) {
+			throw new BusinessException(e.getMessage());
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel realizar a exclusao do registro");
+		}
+	}
 }
