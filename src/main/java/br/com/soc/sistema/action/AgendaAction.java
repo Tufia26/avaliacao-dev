@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.soc.sistema.business.AgendaBusiness;
+import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.AgendaFilter;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.DisponibilidadeEnum;
@@ -63,9 +64,13 @@ public class AgendaAction extends Action {
 			return REDIRECT;
 		}
 
-		business.excluirAgenda(agendaVo.getRowid());
-		
-		return REDIRECT;
+		try {
+			business.excluirAgenda(agendaVo.getRowid());
+			return REDIRECT;
+		} catch (BusinessException e) {
+			addActionError(e.getMessage());
+			return todos();
+		}
 	}
 
 	public List<OpcoesComboBuscar> getListaOpcoesCombo() {

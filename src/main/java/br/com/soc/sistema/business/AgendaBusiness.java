@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.soc.sistema.dao.AgendaDao;
+import br.com.soc.sistema.dao.CompromissoDao;
 import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.AgendaFilter;
 import br.com.soc.sistema.infra.DisponibilidadeEnum;
@@ -13,9 +14,11 @@ public class AgendaBusiness {
 
 	private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
 	private AgendaDao dao;
+	private CompromissoDao compromissoDao;
 
 	public AgendaBusiness() {
 		this.dao = new AgendaDao();
+		this.compromissoDao = new CompromissoDao();
 	}
 
 	public List<AgendaVo> trazerTodasAsAgendas() {
@@ -85,10 +88,16 @@ public class AgendaBusiness {
 			if (codigo == null || codigo.trim().isEmpty()) {
 				throw new IllegalArgumentException("Codigo nao informado para exclusao");
 			}
+			
+			if (compromissoDao.hasCompromissosByAgenda(codigo)) {
+				throw new BusinessException("Não é possível excluir esta agenda pois existem compromissos vinculados a ela.");
+			}
 
 			Integer cod = Integer.parseInt(codigo);
 
 			dao.deleteByCodigo(cod);
+		} catch (BusinessException e) {
+			throw e;
 		} catch (NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		} catch (IllegalArgumentException e) {
