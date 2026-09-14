@@ -84,6 +84,43 @@ public class CompromissoDao extends Dao {
 
 		return null;
 	}
+	
+	public List<CompromissoVo> findCompromissosByPeriodo(String dataInicial, String dataFinal) {
+		StringBuilder query = new StringBuilder("SELECT ")
+				.append("c.rowid, c.cd_funcionario, c.cd_agenda, c.dt_compromisso, c.hr_compromisso, ")
+				.append("f.nm_funcionario, a.nm_agenda ")
+				.append("FROM compromisso c ")
+				.append("INNER JOIN funcionario f ON f.rowid = c.cd_funcionario ")
+				.append("INNER JOIN agenda a ON a.rowid = c.cd_agenda ")
+				.append("WHERE c.dt_compromisso BETWEEN ? AND ? ")
+				.append("ORDER BY c.dt_compromisso ASC, c.hr_compromisso ASC");
+
+		try (Connection con = getConexao();
+			 PreparedStatement ps = con.prepareStatement(query.toString())) {
+
+			ps.setString(1, dataInicial);
+			ps.setString(2, dataFinal);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				List<CompromissoVo> lista = new ArrayList<>();
+				while (rs.next()) {
+					CompromissoVo vo = new CompromissoVo();
+					vo.setRowid(rs.getString("rowid"));
+					vo.setCodigoFuncionario(rs.getString("cd_funcionario"));
+					vo.setCodigoAgenda(rs.getString("cd_agenda"));
+					vo.setDataCompromisso(rs.getString("dt_compromisso"));
+					vo.setHorarioCompromisso(rs.getString("hr_compromisso"));
+					vo.setNomeFuncionario(rs.getString("nm_funcionario"));
+					vo.setNomeAgenda(rs.getString("nm_agenda"));
+					lista.add(vo);
+				}
+				return lista;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new TechnicalException("Erro ao buscar compromissos por período.", e);
+		}
+	}
 
 	public void updateCompromisso(CompromissoVo compromissoVo) {
 		StringBuilder query = new StringBuilder("UPDATE compromisso SET ")

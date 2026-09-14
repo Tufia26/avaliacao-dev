@@ -57,6 +57,21 @@ public class CompromissoBusiness {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_INVALIDO);
 		}
 	}
+	
+	public List<CompromissoVo> buscarCompromissosPorPeriodo(String dataInicial, String dataFinal) {
+		if (dataInicial == null || dataInicial.trim().isEmpty()) {
+			throw new BusinessException("A Data Inicial é obrigatória para o relatório.");
+		}
+		if (dataFinal == null || dataFinal.trim().isEmpty()) {
+			throw new BusinessException("A Data Final é obrigatória para o relatório.");
+		}
+
+		if (dataInicial.compareTo(dataFinal) > 0) {
+			throw new BusinessException("A Data Inicial não pode ser posterior à Data Final.");
+		}
+
+		return dao.findCompromissosByPeriodo(dataInicial.trim(), dataFinal.trim());
+	}
 
 	public List<CompromissoVo> trazerTodosOsCompromissos() {
 		return dao.findAllCompromissos();
