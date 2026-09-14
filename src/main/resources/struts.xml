@@ -27,7 +27,7 @@
             <result name="input">/compromisso/cadCompromisso_i.jsp</result>
             <result name="redirect" type="redirectAction">todosCompromissos</result>
         </action>
-        <action name="*RelatorioCompromissos" class="br.com.soc.sistema.action.RelatorioCompromissoAction" method="{1}">
+        <action name="*Relatorios" class="br.com.soc.sistema.action.RelatorioCompromissoAction" method="{1}">
             <result name="success">/relatorio/relatorioCompromisso.jsp</result>
             <result name="input">/relatorio/relatorioCompromisso.jsp</result>
             <result name="excel" type="stream">

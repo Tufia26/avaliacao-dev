@@ -10,15 +10,17 @@
 	<body class="bg-secondary">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
 		    <div class="container">
-		        <span class="navbar-brand font-weight-bold">Sistema SOC</span>
+		        <span class="navbar-brand font-weight-bold"><s:text name="label.sistema.soc" /></span>
 		        <div class="navbar-nav">
 		            <s:url action="todosFuncionarios" var="urlFunc" />
 		            <s:url action="todosAgendas" var="urlAgend" />
 		            <s:url action="todosCompromissos" var="urlComp" />
+		            <s:url action="abrirRelatorios" var="urlRelat" />
 		            
-		            <a class="nav-link" href="${urlFunc}">Funcionários</a>
-		            <a class="nav-link active" href="${urlAgend}">Agendas</a>
-		            <a class="nav-link" href="${urlComp}">Compromissos</a>
+		            <a class="nav-link" href="${urlFunc}"><s:text name="label.funcionarios" /></a>
+		            <a class="nav-link active" href="${urlAgend}"><s:text name="label.agendas" /></a>
+		            <a class="nav-link" href="${urlComp}"><s:text name="label.compromissos" /></a>
+		            <a class="nav-link" href="${urlRelat}"><s:text name="label.relatorios" /></a>
 		        </div>
 		    </div>
 		</nav>
